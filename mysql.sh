@@ -16,7 +16,7 @@ then
 echo "$2 is failure"
 exit 1
 else
-echo "$1 is success"
+echo "$2 is success"
 fi 
 }
 
