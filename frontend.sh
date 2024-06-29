@@ -27,7 +27,7 @@ else
     echo "You are super user."
 fi
 
-yum install nginx -y &>>$LOGFILE
+apt-get install nginx -y &>>$LOGFILE
 VALIDATE $? "Installing nginx"
 
 systemctl enable nginx &>>$LOGFILE
