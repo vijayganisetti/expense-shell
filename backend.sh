@@ -55,7 +55,7 @@ curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expen
 VALIDATE $? "Downloading backend code"
 
 cd /app
-rm -rf /app/*
+rm -rf /app/* # if we already unziped the code 2nd time we cannot unzip so using ( rm -rf /app/) we will remove and unzip every time we execute
 unzip /tmp/backend.zip &>>$LOGFILE
 VALIDATE $? "Extracted backend code"
 
