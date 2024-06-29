@@ -27,14 +27,14 @@ else
     echo "You are super user."
 fi
 
-apt-get install nginx -y &>>$LOGFILE
-VALIDATE $? "Installing nginx"
+systemctl install nginx -y &>>$LOGFILE
+ VALIDATE $? "Installing nginx"
 
 systemctl enable nginx &>>$LOGFILE
 VALIDATE $? "Enabling nginx"
 
 systemctl start nginx &>>$LOGFILE
- VALIDATE $? "Starting nginx"
+ #VALIDATE $? "Starting nginx"
 
 # rm -rf /usr/share/nginx/html/* &>>$LOGFILE
 # VALIDATE $? "Removing existing content"
