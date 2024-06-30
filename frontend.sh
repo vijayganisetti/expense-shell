@@ -36,8 +36,9 @@ VALIDATE $? "Enabling nginx"
 systemctl start nginx &>>$LOGFILE
 VALIDATE $? "Starting nginx"
 
-# rm -rf /usr/share/nginx/html/* &>>$LOGFILE
-# VALIDATE $? "Removing existing content"
+#rm -rf /usr/share/nginx/html/* &>>$LOGFILE
+rm -rf /usr/share/nginx/html/* &>>$LOGFILE
+VALIDATE $? "Removing existing content"
 
 curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOGFILE
 VALIDATE $? "Downloading frontend code"
