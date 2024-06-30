@@ -81,16 +81,21 @@ VALIDATE $? "Enabling MySQL Server"
 systemctl start mysqld &>>$LOGFILE
 VALIDATE $? "Starting MySQL Server"
 
-  mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
-  VALIDATE $? "Setting up root password"
+#   mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
+#   VALIDATE $? "Setting up root password"
 
-#Below code will be useful for idempotent nature
-# mysql -h db.daws78s.online -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
-# mysql -h 34.207.150.8 -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
-# if [ $? -ne 0 ]
-# then
-#     mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
-#     VALIDATE $? "MySQL Root password Setup"
-# else
-#     echo -e "MySQL Root password is already setup...$Y SKIPPING $N"
-# fi
+##1. idempotent is a nature of every programming language irrespective of how many times you execute the code it will show same result 
+##2. sshell is not idemponent nature we need to take care of it some commands will fail when we run them multiple times
+
+### $ mysql -h db.vijayganisetti.online -uroot -pExpenseApp@1 -e 'SHOW DATABASES;' --> this command is to check mysql is connecting to db server or not.
+
+
+### Below code will be useful for idempotent nature
+mysql -h db.vijayganisetti.online -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
+if [ $? -ne 0 ]
+then
+    mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
+    VALIDATE $? "MySQL Root password Setup"
+else
+    echo -e "MySQL Root password is already setup...$Y SKIPPING $N"
+fi
